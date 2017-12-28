@@ -1,0 +1,29 @@
+{
+  "name": "serverless-actions",
+  "version": "1.0.0",
+  "description": "Serverless functions for StreetCred backend",
+  "main": "CheckIn.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rvennam/streetcred.git"
+  },
+  "author": "Ram Vennam",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rvennam/streetcred/issues"
+  },
+  "homepage": "https://github.com/rvennam/streetcred#readme",
+  "devDependencies": {
+    "eslint": "^4.14.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.8.0"
+  },
+  "dependencies": {
+    "cloudant": "^1.10.0",
+    "dotenv": "^4.0.0",
+    "serverless-eslint-plugin": "^0.1.4"
+  }
+}
