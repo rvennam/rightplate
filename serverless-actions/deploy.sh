@@ -2,6 +2,8 @@
 source .env
 PACKAGE_NAME=streetcred
 
+bx wsk action update $PACKAGE_NAME/GetPlaces CheckIn.js -p googleKey $GOOGLE_KEY --web true
+
 bx wsk action update $PACKAGE_NAME/CheckIn CheckIn.js -p url $DB_URL -p dbname $DB_BADGES --web true
 
 bx wsk action update $PACKAGE_NAME/CreateNewUser CreateNewUser.js
