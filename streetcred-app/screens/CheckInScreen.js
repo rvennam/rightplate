@@ -23,7 +23,6 @@ static navigationOptions = {
 };
 
 getPlaces(position){
-	console.log('POSTITION , ', position);
 	const { latitude, longitude } = position.coords;
 	const url = 'https://openwhisk.ng.bluemix.net/api/v1/web/rvennam@us.ibm.com_streetcred/streetcred/GetPlaces?' + 
         `latitude=${latitude}&longitude=${longitude}`;

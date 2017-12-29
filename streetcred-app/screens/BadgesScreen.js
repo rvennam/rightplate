@@ -9,6 +9,8 @@ import {
 	RefreshControl
 } from 'react-native';
 import {Card, ListItem, Button, Icon} from 'react-native-elements';
+import {connect} from 'react-redux';
+
 
 class Badges extends React.Component {
 	constructor(props) {
@@ -39,8 +41,8 @@ _onRefresh() {
 }
 
 fetchData() {
-	return fetch('https://openwhisk.ng.bluemix.net/api/v1/web/rvennam@us.ibm.com_streetcred/street' +
-'cred/GetUserBadges?userID=0')
+	return fetch('https://openwhisk.ng.bluemix.net/api/v1/web/rvennam@us.ibm.com_streetcred/' +
+'streetcred/GetUserBadges?userID=0')
 		.then(response => response.json())
 		.then((responseJson) => {
 			this.setState({badges: responseJson});
@@ -96,4 +98,11 @@ const styles = StyleSheet.create({
 	}
 });
 
-export default Badges;
+const mapStateToProps = state => {
+	return {
+		todos: 'todo1'
+	};
+};
+
+
+export default connect(mapStateToProps, {})(Badges);
