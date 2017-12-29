@@ -1,4 +1,4 @@
-const GetUser = require('./GetUser.js');
+const GetUser = require('../GetUser.js');
 require('dotenv').config();
 
 GetUser

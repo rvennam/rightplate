@@ -1,4 +1,4 @@
-const GetUserBadges = require('./GetUserBadges.js');
+const GetUserBadges = require('../GetUserBadges.js');
 require('dotenv').config();
 
 GetUserBadges

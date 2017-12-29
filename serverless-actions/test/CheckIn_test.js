@@ -1,4 +1,4 @@
-const CheckIn = require('./CheckIn.js');
+const CheckIn = require('../CheckIn.js');
 require('dotenv').config();
 
 CheckIn

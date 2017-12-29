@@ -10,6 +10,7 @@ class CheckInScreen extends React.Component {
 		this.state = {
 			placesList: []
 		};
+		this.getPlaces = this.getPlaces.bind(this);
 	}
 
 static navigationOptions = {
@@ -21,16 +22,20 @@ static navigationOptions = {
 	),
 };
 
+getPlaces(position){
+	console.log('POSTITION , ', position);
+	const { latitude, longitude } = position.coords;
+	const url = 'https://openwhisk.ng.bluemix.net/api/v1/web/rvennam@us.ibm.com_streetcred/streetcred/GetPlaces?' + 
+        `latitude=${latitude}&longitude=${longitude}`;
+	return fetch(url).then((response) => response.json()).then((responseJson) => {
+		Array.isArray(responseJson) && this.setState({placesList: responseJson});
+	}).catch((error) => {
+		console.error(error);
+	});
+}
+
 componentDidMount() {
-	return fetch('https://openwhisk.ng.bluemix.net/api/v1/web/rvennam@us.ibm.com_streetcred/street' +
-        'cred/getPlaces?blocking=true&result=true')
-		.then((response) => response.json())
-		.then((responseJson) => {
-			this.setState({ placesList: responseJson });
-		})
-		.catch((error) => {
-			console.error(error);
-		});
+	navigator.geolocation.getCurrentPosition((position)=>this.getPlaces(position));
 }
 
 checkIn(badge) {

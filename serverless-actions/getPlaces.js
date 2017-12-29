@@ -20,8 +20,8 @@ function main(params) {
       qs: {
         key: googleKey,
         location: `${latitude}, ${longitude}`,
-        radius: '100',
-        type: 'restaurant',
+        radius: '300',
+        type: 'point_of_interest',
       },
     };
 
