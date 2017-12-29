@@ -5,9 +5,9 @@ import { Ionicons } from '@expo/vector-icons';
 import RootNavigation from './navigation/RootNavigation';
 import {Provider} from 'react-redux';
 
-import todoApp from './reducers';
+import streetCredStore from './reducers';
 import {createStore} from 'redux';
-let store = createStore(todoApp);
+let store = createStore(streetCredStore);
 
 export default class App extends React.Component {
   state = {

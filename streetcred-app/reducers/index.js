@@ -1,7 +1,7 @@
 import {combineReducers} from 'redux';
-import todos from './todos';
+import badges from './badges';
 import visibilityFilter from './visibilityFilter';
 
-const todoApp = combineReducers({todos, visibilityFilter});
+const streetCredStore = combineReducers({badges, visibilityFilter});
 
-export default todoApp;
+export default streetCredStore;

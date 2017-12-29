@@ -10,14 +10,16 @@ import {
 } from 'react-native';
 import {Card, ListItem, Button, Icon} from 'react-native-elements';
 import {connect} from 'react-redux';
+import {addBadgesAction} from '../actions';
+import {getBadges} from '../services.js';
 
 
 class Badges extends React.Component {
 	constructor(props) {
 		super(props);
+		console.log(props.badges);
 		this.state = {
-			refreshing: false,
-			badges: []
+			refreshing: false
 		};
 		this.fetchData = this
 			.fetchData
@@ -25,12 +27,14 @@ class Badges extends React.Component {
 		this._onRefresh = this
 			._onRefresh
 			.bind(this);
+		getBadges().then(r => props.dispatch(addBadgesAction(r)));
 	}
 
 static navigationOptions = {
 	title: 'Badges',
 	tabBarIcon: ({tintColor}) => (<Icon type='simple-line-icon' name='badge'/>)
 };
+
 _onRefresh() {
 	this.setState({refreshing: true});
 	this
@@ -45,16 +49,19 @@ fetchData() {
 'streetcred/GetUserBadges?userID=0')
 		.then(response => response.json())
 		.then((responseJson) => {
-			this.setState({badges: responseJson});
+			this.props.dispatch(addBadgesAction(responseJson));
 		})
 		.catch((error) => {
 			console.error(error);
-			this.setState({badges: []});
 		});
 }
 
-componentDidMount() {
-	return this.fetchData();
+// componentDidMount() {
+// 	return this.fetchData();
+// }
+
+componentWillReceiveProps() {
+	console.log('componentWillReceiveProps?');
 }
 
 render() {
@@ -71,7 +78,7 @@ render() {
 				<Text style={styles.heading}>Your Badges</Text>
 			</View>
 			{this
-				.state
+				.props
 				.badges
 				.map((badge, i) => <Card
 					key={i}
@@ -99,10 +106,14 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => {
+	console.log('Got new state', state);
+	console.log('--');
 	return {
-		todos: 'todo1'
+		badges: state.badges
 	};
 };
 
 
-export default connect(mapStateToProps, {})(Badges);
+
+export default connect(mapStateToProps)(Badges);
+// export default connect()(Badges);

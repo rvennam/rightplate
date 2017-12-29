@@ -46,4 +46,23 @@ function insert(cloudantDb, doc, params) {
       });
   }));
 }
+
+/**
+ * Delete document by id and rev.
+ */
+function destroy(cloudantDb, docId, docRev) {
+  return new Promise(((resolve, reject) => {
+    cloudantDb
+      .destroy(docId, docRev, (error, response) => {
+        if (!error) {
+          console.log('success', response);
+          resolve(response);
+        } else {
+          console.error('error', error);
+          reject(error);
+        }
+      });
+  }));
+}
+
 exports.main = main;

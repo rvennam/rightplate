@@ -3,6 +3,9 @@ import { StyleSheet, Text, View, Dimensions, Image, ScrollView } from 'react-nat
 import { Card, ListItem, Button, Icon, List} from 'react-native-elements';
 import MapView from 'react-native-maps';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import {addBadgesAction} from '../actions';
+import {getBadges} from '../services.js';
 
 class CheckInScreen extends React.Component {
 	constructor(props) {
@@ -46,7 +49,11 @@ checkIn(badge) {
 		},
 		body : JSON.stringify({'userID': '0', 'name': badge.name})
 	})
-		.then((response) => response.json())
+		.then(
+			setTimeout( () => 
+				this.props.refreshBadges()
+				, 1000)
+		)
 		.then(this.props.navigation.navigate('Badges'))
 		.catch((error) => {
 			console.error(error);
@@ -102,4 +109,16 @@ CheckInScreen.propTypes = {
 	navigation: PropTypes.object
 };
 
-export default CheckInScreen;
+const mapStateToProps = state => {
+	return {badges: state.badges};
+};
+
+const mapDispatchToProps = dispatch => {
+	return {
+		refreshBadges : () => {
+			getBadges().then(badges => dispatch(addBadgesAction(badges)));
+		}
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CheckInScreen);
