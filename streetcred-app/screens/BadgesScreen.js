@@ -11,7 +11,7 @@ import {
 import {Card, ListItem, Button, Icon} from 'react-native-elements';
 import {connect} from 'react-redux';
 import {addBadgesAction} from '../actions';
-import {getBadges} from '../services.js';
+import {getBadges, deleteBadge} from '../services.js';
 
 
 class Badges extends React.Component {
@@ -21,13 +21,9 @@ class Badges extends React.Component {
 		this.state = {
 			refreshing: false
 		};
-		this.fetchData = this
-			.fetchData
-			.bind(this);
-		this._onRefresh = this
-			._onRefresh
-			.bind(this);
-		getBadges().then(r => props.dispatch(addBadgesAction(r)));
+		this._onRefresh = this._onRefresh.bind(this);
+		// this.deleteBadgeOnClick = this.deleteBadgeOnClick.bind(this);
+		this.props.refreshBadges();
 	}
 
 static navigationOptions = {
@@ -37,28 +33,16 @@ static navigationOptions = {
 
 _onRefresh() {
 	this.setState({refreshing: true});
-	this
-		.fetchData()
-		.then(() => {
-			this.setState({refreshing: false});
-		});
+	setInterval(()=>{
+		this.setState({refreshing: false});
+		this.props.refreshBadges();
+	},1000);
 }
 
-fetchData() {
-	return fetch('https://openwhisk.ng.bluemix.net/api/v1/web/rvennam@us.ibm.com_streetcred/' +
-'streetcred/GetUserBadges?userID=0')
-		.then(response => response.json())
-		.then((responseJson) => {
-			this.props.dispatch(addBadgesAction(responseJson));
-		})
-		.catch((error) => {
-			console.error(error);
-		});
+deleteBadgeOnClick(badge) {
+	deleteBadge(badge._id, badge._rev).then(this._onRefresh());
+	
 }
-
-// componentDidMount() {
-// 	return this.fetchData();
-// }
 
 componentWillReceiveProps() {
 	console.log('componentWillReceiveProps?');
@@ -85,7 +69,12 @@ render() {
 					title={`You earned the ${badge.name} badge`}
 					image={{
 						uri: 'https://cdn.pixabay.com/photo/2017/11/22/10/51/asian-2970211_1280.jpg'
-					}}></Card>)
+					}}>
+					<Icon 
+						onPress={() => this.deleteBadgeOnClick(badge)}
+						containerStyle={styles.deleteIcon}
+						name = 'delete' />
+				</Card>)
 			}
 		</ScrollView>
 	);
@@ -102,6 +91,9 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		padding: 40,
 		backgroundColor: '#dcd7d4'
+	},
+	deleteIcon: {
+		alignSelf : 'flex-end',
 	}
 });
 
@@ -113,7 +105,14 @@ const mapStateToProps = state => {
 	};
 };
 
+const mapDispatchToProps = dispatch => {
+	return {
+		refreshBadges: () => {
+			getBadges().then(badges => dispatch(addBadgesAction(badges)));
+		}
+	};
+};
 
 
-export default connect(mapStateToProps)(Badges);
+export default connect(mapStateToProps, mapDispatchToProps)(Badges);
 // export default connect()(Badges);
