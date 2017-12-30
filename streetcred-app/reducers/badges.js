@@ -5,7 +5,6 @@ const badges = (state = [
 ], action) => {
 	switch (action.type) {
 	case 'ADD_BADGES' : {
-		console.log('reducing to new badges');
 		return action.badges;
 	}
 	default:

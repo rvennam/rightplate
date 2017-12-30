@@ -17,7 +17,6 @@ import {getBadges, deleteBadge} from '../services.js';
 class Badges extends React.Component {
 	constructor(props) {
 		super(props);
-		console.log(props.badges);
 		this.state = {
 			refreshing: false
 		};
@@ -33,10 +32,11 @@ static navigationOptions = {
 
 _onRefresh() {
 	this.setState({refreshing: true});
-	setInterval(()=>{
+	setTimeout(()=>{
 		this.setState({refreshing: false});
 		this.props.refreshBadges();
 	},1000);
+	
 }
 
 deleteBadgeOnClick(badge) {
@@ -44,8 +44,12 @@ deleteBadgeOnClick(badge) {
 	
 }
 
-componentWillReceiveProps() {
-	console.log('componentWillReceiveProps?');
+componentWillReceiveProps(props){
+	let { params } = props.navigation.state;
+	if (params && params.refresh) {
+		params.refresh = false;
+		this._onRefresh();
+	}
 }
 
 render() {
@@ -98,8 +102,6 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => {
-	console.log('Got new state', state);
-	console.log('--');
 	return {
 		badges: state.badges
 	};
@@ -115,4 +117,3 @@ const mapDispatchToProps = dispatch => {
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(Badges);
-// export default connect()(Badges);

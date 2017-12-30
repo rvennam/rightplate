@@ -5,7 +5,7 @@ import MapView from 'react-native-maps';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {addBadgesAction} from '../actions';
-import {getBadges} from '../services.js';
+import {getBadges, getPlaces, checkIn} from '../services.js';
 
 class CheckInScreen extends React.Component {
 	constructor(props) {
@@ -13,7 +13,7 @@ class CheckInScreen extends React.Component {
 		this.state = {
 			placesList: []
 		};
-		this.getPlaces = this.getPlaces.bind(this);
+		this.fetchData = this.fetchData.bind(this);
 	}
 
 static navigationOptions = {
@@ -25,39 +25,18 @@ static navigationOptions = {
 	),
 };
 
-getPlaces(position){
-	const { latitude, longitude } = position.coords;
-	const url = 'https://openwhisk.ng.bluemix.net/api/v1/web/rvennam@us.ibm.com_streetcred/streetcred/GetPlaces?' + 
-        `latitude=${latitude}&longitude=${longitude}`;
-	return fetch(url).then((response) => response.json()).then((responseJson) => {
+fetchData(position) {
+	getPlaces(position).then((responseJson) => {
 		Array.isArray(responseJson) && this.setState({placesList: responseJson});
-	}).catch((error) => {
-		console.error(error);
 	});
 }
 
 componentDidMount() {
-	navigator.geolocation.getCurrentPosition((position)=>this.getPlaces(position));
+	navigator.geolocation.getCurrentPosition((position)=>this.fetchData(position));
 }
 
-checkIn(badge) {
-	fetch('https://openwhisk.ng.bluemix.net/api/v1/web/rvennam@us.ibm.com_streetcred/streetcred/CheckIn', {
-		method : 'POST',
-		headers : {
-			'Accept': 'application/json',
-			'Content-Type': 'application/json'
-		},
-		body : JSON.stringify({'userID': '0', 'name': badge.name})
-	})
-		.then(
-			setTimeout( () => 
-				this.props.refreshBadges()
-				, 1000)
-		)
-		.then(this.props.navigation.navigate('Badges'))
-		.catch((error) => {
-			console.error(error);
-		});
+checkInButton(badge) {
+	checkIn(badge).then(this.props.navigation.navigate('Badges', {refresh: true}));
 }
 
 render() {
@@ -71,19 +50,13 @@ render() {
 				<ListItem key={i}
 					roundAvatar
 					title={badge.name}
-					onPress={() => this.checkIn(badge)}
+					onPress={() => this.checkInButton(badge)}
 					imageProps={{resizeMode : 'contain'}}
 					avatar={{ uri: badge.icon }}
 				>
 					<Text style={{ marginBottom: 10 }}>
 
 					</Text>
-					<Button
-						icon={{ name: 'code' }}
-						backgroundColor='#03A9F4'
-						onPress={() => this.checkIn(badge)}
-						buttonStyle={{ borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0 }}
-						title='CHECK IN' />
 				</ListItem>
 			)}
 		</ScrollView>

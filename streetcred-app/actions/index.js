@@ -15,6 +15,5 @@ export const toggleTodo = id => {
 };
 
 export const addBadgesAction = badges => {
-	console.log('adding badges!', badges);
 	return {type: 'ADD_BADGES', badges};
 };
