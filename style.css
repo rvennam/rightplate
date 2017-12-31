@@ -3,7 +3,7 @@
 }
 
 .navbar {
-    background-color: #3273dc;
+    background-color: #60B0F4;
 }
 
 .navbar-title {
@@ -27,3 +27,25 @@
 .coming-soon-container {
     text-align: center;
 }
+
+.navbar-item img {
+    max-height: 3rem;
+}
+
+.navbar-item,
+.navbar-link {
+    line-height: 1;
+}
+
+.logo {
+    max-height: 250px;
+}
+
+.subtitle {
+    text-align: center;
+}
+
+.logo-container {
+    text-align: center;
+}
+]
