@@ -7,19 +7,23 @@ import Colors from '../constants/Colors';
 
 import BadgesScreen from '../screens/BadgesScreen';
 import CheckInScreen from '../screens/CheckInScreen';
+import PlacesDetailScreen from '../screens/PlaceDetailScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+import PlacesNavigation from '../screens/PlacesNavigation';
 
 export default TabNavigator(
 	{
 		Badges: {
-			screen: BadgesScreen,
+			screen : BadgesScreen,
+			navigationOptions : ({navigation}) => ({header: null})
 		},
 		CheckIn: {
-			screen: CheckInScreen,
+			screen: PlacesNavigation,
+			navigationOptions : ({navigation}) => ({header: null})
 		},
 		Settings: {
 			screen: SettingsScreen,
-		},
+		}
 	},
 	{
 		navigationOptions: ({ navigation }) => ({

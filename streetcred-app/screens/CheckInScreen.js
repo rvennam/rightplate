@@ -36,7 +36,7 @@ componentDidMount() {
 }
 
 checkInButton(badge) {
-	checkIn(badge).then(this.props.navigation.navigate('Badges', {refresh: true}));
+	checkIn(badge).then(this.props.navigation.navigate('Detail', {refresh: true}));
 }
 
 render() {
