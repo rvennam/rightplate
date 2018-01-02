@@ -7,6 +7,11 @@ class PlaceDetailScreen extends React.Component {
 	static navigationOptions = ({ navigation }) => ({
 		title: navigation.state.params.badge.name,
 	});
+
+	onCheckInPlace(badge) {
+		checkIn(badge).then(this.props.navigation.navigate('Badges', {refresh: true}));
+	}
+
 	render() {
 		const {badge} = this.props.navigation.state.params;
 		console.log(badge);
@@ -25,6 +30,7 @@ class PlaceDetailScreen extends React.Component {
 					{badge.vicinity}
 				</Text>
 				<Button
+					onPress={() => this.onCheckInPlace(badge)}
 					icon={{name: 'code'}}
 					backgroundColor='#03A9F4'
 					buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}

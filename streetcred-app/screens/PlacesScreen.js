@@ -18,11 +18,7 @@ class PlacesScreen extends React.Component {
 
 static navigationOptions = {
 	tabBarLabel: 'Check In',
-	tabBarIcon: ({ tintColor }) => (
-		<Icon
-			type='simple-line-icon'
-			name='check' />
-	),
+	tabBarIcon: ({tintColor}) => (<Icon type='simple-line-icon' name='badge'/>)
 };
 
 fetchData(position) {

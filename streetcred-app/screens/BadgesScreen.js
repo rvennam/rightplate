@@ -26,8 +26,7 @@ class Badges extends React.Component {
 	}
 
 static navigationOptions = {
-	title: 'Badges',
-	tabBarIcon: ({tintColor}) => (<Icon type='simple-line-icon' name='badge'/>)
+	title: 'My Places'
 };
 
 _onRefresh() {
@@ -70,7 +69,7 @@ render() {
 				.badges
 				.map((badge, i) => <Card
 					key={i}
-					title={`You earned the ${badge.name} badge`}
+					title={`Your trip to ${badge.name}.`}
 					image={{
 						uri: 'https://cdn.pixabay.com/photo/2017/11/22/10/51/asian-2970211_1280.jpg'
 					}}>

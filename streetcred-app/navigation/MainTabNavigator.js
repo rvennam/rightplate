@@ -1,6 +1,7 @@
 import React from 'react';
 import { Platform } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import {Icon} from 'react-native-elements';
 import { TabNavigator, TabBarBottom } from 'react-navigation';
 
 import Colors from '../constants/Colors';
@@ -17,7 +18,7 @@ export default TabNavigator(
 			screen: PlacesNavigation,
 			navigationOptions : ({navigation}) => ({header: null})
 		},
-		Badges: {
+		'Badges': {
 			screen : BadgesScreen,
 			navigationOptions : ({navigation}) => ({header: null})
 		},
@@ -31,19 +32,17 @@ export default TabNavigator(
 				const { routeName } = navigation.state;
 				let iconName;
 				switch (routeName) {
-				case 'Home':
-					iconName =
-              Platform.OS === 'ios' ? `ios-information-circle${focused ? '' : '-outline'}` : 'md-information-circle';
+				case 'CheckIn':
+					iconName = 'add-circle-outline';
 					break;
-				case 'Links':
-					iconName = Platform.OS === 'ios' ? `ios-link${focused ? '' : '-outline'}` : 'md-link';
+				case 'Badges':
+					iconName = 'bookmark-border';
 					break;
 				case 'Settings':
-					iconName =
-              Platform.OS === 'ios' ? `ios-options${focused ? '' : '-outline'}` : 'md-options';
+					iconName ='settings';
 				}
 				return (
-					<Ionicons
+					<Icon
 						name={iconName}
 						size={28}
 						style={{ marginBottom: -3 }}
