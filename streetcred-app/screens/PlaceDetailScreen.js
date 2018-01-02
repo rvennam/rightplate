@@ -23,7 +23,7 @@ class PlaceDetailScreen extends React.Component {
 					
 				<Text style={{marginBottom: 10}}>
 					{badge.vicinity}
-    				</Text>
+				</Text>
 				<Button
 					icon={{name: 'code'}}
 					backgroundColor='#03A9F4'
