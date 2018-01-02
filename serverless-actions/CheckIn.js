@@ -1,3 +1,20 @@
+/**
+ * Create document in database.
+ */
+function insert(cloudantDb, doc, params) {
+  return new Promise(((resolve) => {
+    cloudantDb.insert(doc, params, (error, response) => {
+      if (!error) {
+        console.log('success', response);
+        resolve({ body: response });
+      } else {
+        console.log('error', error);
+        resolve({ body: error });
+      }
+    });
+  }));
+}
+
 function main(message) {
   const {
     dbname, url, userID, name,
@@ -27,42 +44,6 @@ function main(message) {
     name,
   };
   return insert(cloudantDb, doc, params);
-}
-
-/**
- * Create document in database.
- */
-function insert(cloudantDb, doc, params) {
-  return new Promise(((resolve, reject) => {
-    cloudantDb
-      .insert(doc, params, (error, response) => {
-        if (!error) {
-          console.log('success', response);
-          resolve({ body: response });
-        } else {
-          console.log('error', error);
-          resolve({ body: error });
-        }
-      });
-  }));
-}
-
-/**
- * Delete document by id and rev.
- */
-function destroy(cloudantDb, docId, docRev) {
-  return new Promise(((resolve, reject) => {
-    cloudantDb
-      .destroy(docId, docRev, (error, response) => {
-        if (!error) {
-          console.log('success', response);
-          resolve(response);
-        } else {
-          console.error('error', error);
-          reject(error);
-        }
-      });
-  }));
 }
 
 exports.main = main;

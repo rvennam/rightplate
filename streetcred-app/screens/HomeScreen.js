@@ -5,11 +5,11 @@ import {
 
 import BadgesScreen from './BadgesScreen';
 import SetupScreen from './SetupScreen';
-import CheckInScreen from './CheckInScreen';
+import PlacesScreen from './PlacesScreen';
 
 const HomeScreen = TabNavigator({
 	Main: { screen: BadgesScreen, icon: 'badge' },
-	'Check In': { screen: CheckInScreen },
+	'Check In': { screen: PlacesScreen },
 	Setup: { screen: SetupScreen },
 });
 

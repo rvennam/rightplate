@@ -6,19 +6,19 @@ import { TabNavigator, TabBarBottom } from 'react-navigation';
 import Colors from '../constants/Colors';
 
 import BadgesScreen from '../screens/BadgesScreen';
-import CheckInScreen from '../screens/CheckInScreen';
+import PlacesScreen from '../screens/PlacesScreen';
 import PlacesDetailScreen from '../screens/PlaceDetailScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import PlacesNavigation from '../screens/PlacesNavigation';
 
 export default TabNavigator(
 	{
-		Badges: {
-			screen : BadgesScreen,
-			navigationOptions : ({navigation}) => ({header: null})
-		},
 		CheckIn: {
 			screen: PlacesNavigation,
+			navigationOptions : ({navigation}) => ({header: null})
+		},
+		Badges: {
+			screen : BadgesScreen,
 			navigationOptions : ({navigation}) => ({header: null})
 		},
 		Settings: {

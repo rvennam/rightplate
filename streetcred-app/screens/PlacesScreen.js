@@ -5,9 +5,9 @@ import MapView from 'react-native-maps';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {addBadgesAction} from '../actions';
-import {getBadges, getPlaces, checkIn} from '../services.js';
+import {getBadges, getPlaces} from '../services.js';
 
-class CheckInScreen extends React.Component {
+class PlacesScreen extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -35,8 +35,9 @@ componentDidMount() {
 	navigator.geolocation.getCurrentPosition((position)=>this.fetchData(position));
 }
 
-checkInButton(badge) {
-	checkIn(badge).then(this.props.navigation.navigate('Detail', {refresh: true}));
+
+onSelectPlace(badge) {
+	this.props.navigation.navigate('Detail', {badge});
 }
 
 render() {
@@ -50,7 +51,7 @@ render() {
 				<ListItem key={i}
 					roundAvatar
 					title={badge.name}
-					onPress={() => this.checkInButton(badge)}
+					onPress={() => this.onSelectPlace(badge)}
 					imageProps={{resizeMode : 'contain'}}
 					avatar={{ uri: badge.icon }}
 				>
@@ -78,7 +79,7 @@ const styles = StyleSheet.create({
 	},
 });
 
-CheckInScreen.propTypes = {
+PlacesScreen.propTypes = {
 	navigation: PropTypes.object
 };
 
@@ -94,4 +95,4 @@ const mapDispatchToProps = dispatch => {
 	};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CheckInScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(PlacesScreen);

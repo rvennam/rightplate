@@ -28,6 +28,10 @@ export const getPlaces = (position) => {
 		.catch((error) => console.error(error));
 };
 
+export const getStaticMapURI = (latitude, longitude) => {
+	return baseURL + `GetStaticMap?latitude=${latitude}&longitude=${longitude}`;
+};
+
 export const checkIn= (badge) =>{
 	return fetch(baseURL  + 'CheckIn', {
 		method: 'POST',
@@ -36,5 +40,7 @@ export const checkIn= (badge) =>{
 			'Content-Type': 'application/json'
 		},
 		body: JSON.stringify({'userID': '0', 'name': badge.name})
-	}).catch((error) => console.error(error));
+	})
+		.then((response) => response.json().body)
+		.catch((error) => console.error(error));
 };
