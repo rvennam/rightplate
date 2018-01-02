@@ -1,6 +1,6 @@
 #!/bin/bash
 source .env
-PACKAGE_NAME=streetcred
+PACKAGE_NAME=rightplate
 
 bx wsk action update $PACKAGE_NAME/GetPlaces GetPlaces.js -p googleKey $GOOGLE_KEY --web true
 

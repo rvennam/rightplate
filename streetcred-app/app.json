@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "StreetCred",
-    "description": "Do cool stuff and earn badges!",
-    "slug": "streetcred-app",
+    "name": "rightplate",
+    "description": "Don't get the wrong plate at the right place!",
+    "slug": "rightplate-app",
     "privacy": "public",
     "sdkVersion": "24.0.0",
     "platforms": ["ios", "android"],

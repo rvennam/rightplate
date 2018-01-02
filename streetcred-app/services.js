@@ -2,7 +2,7 @@ import DeviceInfo from 'react-native-device-info';
 import {Constants} from 'expo';
 
 const baseURL = 'https://openwhisk.ng.bluemix.net/api/v1/web/rvennam@us.ibm.com_streetcred/' +
-        'streetcred/';
+        'rightplate/';
 
 export const getBadges = () => {
 	return fetch(baseURL + 'GetUserBadges?userID=0')
