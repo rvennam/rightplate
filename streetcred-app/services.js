@@ -39,7 +39,7 @@ export const checkIn= (badge) =>{
 			'Accept': 'application/json',
 			'Content-Type': 'application/json'
 		},
-		body: JSON.stringify({'userID': '0', 'name': badge.name})
+		body: JSON.stringify({'userID': '0', ...badge})
 	})
 		.then((response) => response.json().body)
 		.catch((error) => console.error(error));

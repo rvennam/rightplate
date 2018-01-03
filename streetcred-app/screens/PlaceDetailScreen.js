@@ -9,15 +9,14 @@ class PlaceDetailScreen extends React.Component {
 	});
 
 	onCheckInPlace(badge) {
-		checkIn(badge).then(this.props.navigation.navigate('Badges', {refresh: true}));
+		//checkIn(badge).then(this.props.navigation.navigate('Badges', {refresh: true}));
+		this.props.navigation.navigate('CheckIn', {badge});
 	}
 
 	render() {
 		const {badge} = this.props.navigation.state.params;
-		console.log(badge);
 		const {lat, lon} = badge.geometry.location;
 		const mapurl = getStaticMapURI(lat, lon);
-		console.log('mapurl', mapurl);
 		return (
 			<View style={{padding: 20}}>
 				<Image
@@ -27,7 +26,7 @@ class PlaceDetailScreen extends React.Component {
 				/>
 					
 				<Text style={{marginBottom: 10}}>
-					{badge.vicinity}
+					Address: {badge.vicinity}
 				</Text>
 				<Button
 					onPress={() => this.onCheckInPlace(badge)}

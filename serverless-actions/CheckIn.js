@@ -17,7 +17,7 @@ function insert(cloudantDb, doc, params) {
 
 function main(message) {
   const {
-    dbname, url, userID, name,
+    dbname, url, userID, name, plate,
   } = message;
 
   const params = {};
@@ -42,6 +42,7 @@ function main(message) {
     timestamp: (new Date()).getTime().toString(),
     userID,
     name,
+    plate,
   };
   return insert(cloudantDb, doc, params);
 }

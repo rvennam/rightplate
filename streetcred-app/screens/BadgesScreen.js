@@ -21,7 +21,6 @@ class Badges extends React.Component {
 			refreshing: false
 		};
 		this._onRefresh = this._onRefresh.bind(this);
-		// this.deleteBadgeOnClick = this.deleteBadgeOnClick.bind(this);
 		this.props.refreshBadges();
 	}
 
@@ -39,6 +38,7 @@ _onRefresh() {
 }
 
 deleteBadgeOnClick(badge) {
+	this.setState({refreshing: true});
 	deleteBadge(badge._id, badge._rev).then(this._onRefresh());
 	
 }
@@ -62,14 +62,14 @@ render() {
 			} />}>
 			<View style={styles.hero}>
 				<Icon color="white" name="whatshot" size={62} type="material"/>
-				<Text style={styles.heading}>Your Badges</Text>
+				<Text style={styles.heading}>Your Check In's</Text>
 			</View>
 			{this
 				.props
 				.badges
 				.map((badge, i) => <Card
 					key={i}
-					title={`Your trip to ${badge.name}.`}
+					title={`Your trip to ${badge.name}`}
 					image={{
 						uri: 'https://cdn.pixabay.com/photo/2017/11/22/10/51/asian-2970211_1280.jpg'
 					}}>
@@ -77,6 +77,11 @@ render() {
 						onPress={() => this.deleteBadgeOnClick(badge)}
 						containerStyle={styles.deleteIcon}
 						name = 'delete' />
+					{console.log(badge)}
+					<Text>
+						{`${badge.plate.plateName} : ${badge.plate.rating}/5` }
+					</Text>
+
 				</Card>)
 			}
 		</ScrollView>

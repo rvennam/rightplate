@@ -5,13 +5,12 @@ import { StackNavigator} from 'react-navigation';
 import IOSIcon from 'react-native-vector-icons/Ionicons';
 import PlaceDetailScreen from './PlaceDetailScreen';
 import PlacesScreen from './PlacesScreen';
-import {
-	Button, Icon
-} from 'react-native-elements';
+import CheckInScreen from './CheckInScreen';
+import { Button, Icon} from 'react-native-elements';
 
 const PlacesNavigation = StackNavigator({
 	
-	CheckIn: {
+	Places: {
 		screen: PlacesScreen,
 		navigationOptions:({navigation}) => ({
 			header: null,
@@ -24,6 +23,9 @@ const PlacesNavigation = StackNavigator({
 	},
 	Detail: {
 		screen: PlaceDetailScreen,
+	},
+	CheckIn: {
+		screen: CheckInScreen
 	}
 });
 
