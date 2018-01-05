@@ -53,13 +53,7 @@ componentWillReceiveProps(props){
 
 render() {
 	return (
-		<ScrollView
-			refreshControl={< RefreshControl refreshing = {
-				this.state.refreshing
-			}
-			onRefresh = {
-				this._onRefresh
-			} />}>
+		<ScrollView style={{flex:1}}>
 			<View style={styles.hero}>
 				<Icon color="white" name="whatshot" size={62} type="material"/>
 				<Text style={styles.heading}>Your Check In's</Text>
@@ -79,7 +73,7 @@ render() {
 						name = 'delete' />
 					{console.log(badge)}
 					<Text>
-						{`${badge.plate.plateName} : ${badge.plate.rating}/5` }
+						{`${badge.plate.plateName}: ${badge.plate.rating}/5` }
 					</Text>
 
 				</Card>)

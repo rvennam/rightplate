@@ -39,7 +39,7 @@ onSelectPlace(badge) {
 
 render() {
 	return (
-		<ScrollView>
+		<View>
 			<View style={styles.hero}>
 				<Icon color="white" name="near-me" size={62} type="material" />
 				<Text style={styles.heading}>Nearby</Text>
@@ -57,7 +57,7 @@ render() {
 					</Text>
 				</ListItem>
 			)}
-		</ScrollView>
+		</View>
 
 	);
 }

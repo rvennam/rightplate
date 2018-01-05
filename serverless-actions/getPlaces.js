@@ -119,8 +119,8 @@ function mainProd(params) {
       qs: {
         key: googleKey,
         location: `${latitude}, ${longitude}`,
-        radius: '300',
-        type: 'point_of_interest',
+        radius: '200',
+        type: 'restaurant',
       },
     };
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Image, TextInput } from 'react-native';
+import {View, ScrollView, Image, TextInput, Keyboard } from 'react-native';
 import {Button, Icon, Card, Text, Slider, FormLabel, FormInput} from 'react-native-elements';
 import { getStaticMapURI, checkIn }  from '../services.js';
 
@@ -16,6 +16,7 @@ class CheckInScreen extends React.Component {
 		this.onCheckInPlace = this.onCheckInPlace.bind(this);
 	}
 	onCheckInPlace(badge) {
+		Keyboard.dismiss;
 		if(this.state.plateName == '') return;
 		badge.plate = {
 			plateName: this.state.plateName,
@@ -29,11 +30,12 @@ class CheckInScreen extends React.Component {
 		const {lat, lon} = badge.geometry.location;
 		const mapurl = getStaticMapURI(lat, lon);
 		return (
-			<View style={{padding: 20}}>
+			<ScrollView style={styles.container} keyboardShouldPersistTaps="never">
 				<FormLabel>What did you get?</FormLabel>
 				<TextInput
 					style={{height: 40}}
 					placeholder="Cauliflower Taco"
+					value={this.state.plateName}
 					onChangeText={(plateName) => this.setState({plateName})}
 				/>
 				<FormLabel>Rating: {this.state.rating}</FormLabel>
@@ -51,10 +53,18 @@ class CheckInScreen extends React.Component {
 					disabled={this.state.plateName==''? true: false}
 					buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
 					title='CHECK IN' />
-			</View>
+			</ScrollView>
 
 		);
 	}
 }
+
+const styles = {
+	container: {
+	  flex: 1,
+	  padding: 20,
+	  backgroundColor: '#fff',
+	},
+  };
 
 export default CheckInScreen;
