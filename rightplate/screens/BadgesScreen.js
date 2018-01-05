@@ -21,6 +21,7 @@ class Badges extends React.Component {
 			refreshing: false
 		};
 		this._onRefresh = this._onRefresh.bind(this);
+		this.deleteBadgeOnClick = this.deleteBadgeOnClick.bind(this);
 		this.props.refreshBadges();
 	}
 
@@ -28,12 +29,13 @@ static navigationOptions = {
 	title: 'My Places'
 };
 
+// wait a second and then refresh
 _onRefresh() {
-	this.setState({refreshing: true});
+	this.setState({refreshing: true}, () => 
 	setTimeout(()=>{
 		this.setState({refreshing: false});
 		this.props.refreshBadges();
-	},1000);
+	},1000));
 	
 }
 
@@ -53,7 +55,12 @@ componentWillReceiveProps(props){
 
 render() {
 	return (
-		<ScrollView style={{flex:1}}>
+		<ScrollView style={{flex:1}}         refreshControl={
+			<RefreshControl
+			  refreshing={this.state.refreshing}
+			  onRefresh={this._onRefresh.bind(this)}
+			/>
+		  }>
 			<View style={styles.hero}>
 				<Icon color="white" name="whatshot" size={62} type="material"/>
 				<Text style={styles.heading}>Your Check In's</Text>
@@ -71,7 +78,6 @@ render() {
 						onPress={() => this.deleteBadgeOnClick(badge)}
 						containerStyle={styles.deleteIcon}
 						name = 'delete' />
-					{console.log(badge)}
 					<Text>
 						{`${badge.plate.plateName}: ${badge.plate.rating}/5` }
 					</Text>

@@ -33,7 +33,6 @@ componentDidMount() {
 
 
 onSelectPlace(badge) {
-	console.log('going to detail');
 	this.props.navigation.navigate('Detail', {badge});
 }
 
